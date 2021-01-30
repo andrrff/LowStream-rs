@@ -8,6 +8,7 @@ use yew::{
 use crate::{
     switch::{AppAnchor, AppRoute},
     components::{carousel, view_content, view_ecchi, view_romance, view_shounen},
+    log
 };
 
 #[derive(Deserialize, Debug, Clone)]
@@ -28,7 +29,7 @@ pub struct Anime {
 
 #[derive(Deserialize, Debug, Clone)]
 pub struct Struture {
-    animes: Vec<Anime>
+    array: Vec<Anime>
 }
 
 #[derive(Debug)]
@@ -70,18 +71,19 @@ impl LoadPosts {
         let mut count = 0;
         match self.json {
             Some(ref content) => {
-                for i in 0..content.animes.len()
+                // console_log!("posts::view_json() - {}", "Loading done ✔️");
+                for i in 0..content.array.len()
                 {
-                    if search(content.animes[i].anime.clone().to_lowercase(), self.debugged_payload.clone().to_lowercase()) && count < 9
+                    if search(content.array[i].anime.clone().to_lowercase(), self.debugged_payload.clone().to_lowercase()) && count < 9
                     {
                         count += 1;
-                        background.push(content.animes[i].background.clone());
+                        background.push(content.array[i].background.clone());
                         cards.push(html!{
                             <li class="card" style="background: black">
                                 <AppAnchor route=AppRoute::Eps(i as u64)>
-                                    <a class="card-image" style=format!("background-image: url({});", content.animes[i].background.clone()) loading="lazy">
+                                    <a class="card-image" style=format!("background-image: url({});", content.array[i].background.clone()) loading="lazy">
                                         <a class="card-description">
-                                            <strong><h2>{content.animes[i].anime.clone()}</h2></strong>
+                                            <strong><h2>{content.array[i].anime.clone()}</h2></strong>
                                             <p>{"Assistir agora"}</p>
                                         </a>
                                     </a>
@@ -108,6 +110,7 @@ impl LoadPosts {
                 }
             }
             None => {
+                // console_log!("posts::view_json() - {}", "Error ❌ | posts::view_fetching() load is failed ❗");
                 html! {}
             }
         }
@@ -115,27 +118,30 @@ impl LoadPosts {
 
     fn view_fetching(&self) -> Html {
         if self.fetch_task.is_some() {
+            // console_log!("posts::view_fetching() - {}", "Loading progress 💬");
             html! { 
                 <>
-                <carousel::Model background=self.export_background()/>
+                    <carousel::Model background=self.export_background()/>
                     <section style="background-color: #25262F;">
                         <div class="mx-auto" style="width: 250px;">
                             <div class="control is-loading field has-addons">
-                                <input class="input is-rounded" type="text" oninput=self.link.callback(|input: InputData| Msg::Payload(input.value)) value=&self.payload placeholder="Carregando"/>
+                                <input class="input is-rounded" type="text" placeholder="Carregando"/>
                             </div>
                         </div>
-                        <view_content::Content/>
                     </section>
                 </> 
             }
         } else {
+            // console_log!("posts::view_fetching() - {}", "Loading done ✔️");
             html! {}
         }
     }
     fn view_error(&self) -> Html {
         if let Some(ref error) = self.error {
+            // console_log!("posts::view_error() - {}", format!("Error - {} ❌", error.clone()));
             html! { <p>{ error.clone() }</p> }
         } else {
+            // console_log!("posts::view_error() - {}", "None error occorred in fetch ✔️");
             html! {}
         }
     }
@@ -147,12 +153,14 @@ impl LoadPosts {
         {
             Some(ref content) => 
             {
-                for i in 0..content.animes.len()
+                for i in 0..content.array.len()
                 {
-                    background.push(content.animes[i].background.clone());
+                    background.push(content.array[i].background.clone());
                 }
+                // console_log!("posts::export_background() - {}", "Process is done ✔️");
             },
             None => {
+                // console_log!("posts::export_background() - {}", "Process is failure ❌");
                 background.push("https://3.bp.blogspot.com/-bNbqH1Ll5BY/XD97Ife_ioI/AAAAAAAA9Mk/ipwUBBWtGgoEUNu7m7AaYGyvw1DxBR97QCLcBGAs/s1600/Fundo%2Btransparente%2B1900x1900.png".to_string())
             }
         }
@@ -196,7 +204,7 @@ impl Component for LoadPosts {
                 }
             }
             GetInfo => {
-                let request = Request::get("https://gist.githubusercontent.com/GozoDeAvestruz/d8912a0733e758fbc89324b16b9cea44/raw/1a75d13cec7cbc1a13975af9f863223389b27674/cards.json")
+                let request = Request::get("https://lowstreamcast-default-rtdb.firebaseio.com/cards.json")
                     .body(Nothing)
                     .expect("Não foi possível efetuar o request.");
                 let callback =
@@ -228,12 +236,11 @@ impl Component for LoadPosts {
             <>
                 { self.view_fetching() }
                 { self.view_json() }
-                { self.view_error() }   
+                { self.view_error() }
                 <view_content::Content/>
                 <view_ecchi::Ecchi    />
                 <view_shounen::Shounen/> 
                 <view_romance::Romance/>
-                <view_shounen::Shounen/>
             </>
         }
     }

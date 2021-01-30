@@ -1,7 +1,6 @@
 <h1 align="center"> LowStream </h1>
 <p align="justify"> Aplicacao de streaming performatica e de baixo custo de hardware </p>
 <img alt="Website" src="https://img.shields.io/website?down_message=offline&up_message=online&url=https%3A%2F%2Flowstream.tk"> 
-<blockquote>By Alexandroviski, André, $enick & Pablo</blockquote> <a href="https://lowstream.tk/">Entrar no site</a>
 
 <h3>Objetivos</h3>
 

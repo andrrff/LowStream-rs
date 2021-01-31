@@ -26,11 +26,14 @@ mod pages;
 mod components;
 use pages::{
     home::Home, page_not_found::PageNotFound, post::Eps, posts::LoadPosts,
-    search::Search, nsfw::Nsfw
+    search::Search, nsfw::Nsfw, contact_us::Contact
 };
 
 mod data;
 use data::FetchServiceExample;
+
+mod data_sticker;
+use data_sticker::DataSticker;
 
 mod switch;
 use switch::{AppAnchor, AppRoute, AppRouter, PublicUrlSwitch};
@@ -134,9 +137,11 @@ impl Model {
                         {"Mais"}
                         </a>
                             <div class="navbar-dropdown is-boxed" style="background-color: rgba(0, 0, 0);">
-                                <a class="navbar-item" onclick=link.callback(|_| Msg::ToggleNav) style="background-color: rgba(0, 0, 0, 0%); color: white">
-                                    {"Contact us"}
-                                </a>
+                                <AppAnchor classes="navbar-item" route=AppRoute::Contact>
+                                    <a onclick=link.callback(|_| Msg::ToggleNav) style="background-color: rgba(0, 0, 0, 0%); color: white">
+                                        {"About"}
+                                    </a>
+                                </AppAnchor>
                                 <a class="navbar-item" href="https://github.com/LowStream-Community/LowStream/issues/new/choose" onclick=link.callback(|_| Msg::ToggleNav) style=" background-color: rgba(0, 0, 0, 0%);color: white" target="_blank">
                                     {"Issues"}
                                 </a>
@@ -168,6 +173,9 @@ impl Model {
 
     fn switch(switch: PublicUrlSwitch) -> Html {
         match switch.route() {
+            AppRoute::Contact => {
+                html! { <Contact  /> }
+            }
             AppRoute::Nsfw => {
                 html! { <Nsfw  /> }
             }
@@ -176,6 +184,9 @@ impl Model {
             }
             AppRoute::Eps(id) => {
                 html! { <Eps id=id.max(0) /> }
+            }
+            AppRoute::DataSticker => {
+                html! { <DataSticker /> }
             }
             AppRoute::Data => {
                 html! { <FetchServiceExample /> }

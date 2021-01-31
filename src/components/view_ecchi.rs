@@ -34,7 +34,7 @@ impl Component for Ecchi {
                 <div class="content">
                     <div class="con-cards">
                         <div class="padding-40px">
-                            <AppAnchor route=AppRoute::Eps(200)>
+                            <AppAnchor route=AppRoute::Eps(205)>
                                 <Card 
                                     score="4.6".to_string() 
                                     sticker="https://highschooldxdrpg-maniahotel.weebly.com/uploads/2/1/3/2/21328416/5181061.png?442".to_string() 
@@ -43,7 +43,7 @@ impl Component for Ecchi {
                             </AppAnchor>
                         </div>
                         <div class="padding-40px">
-                            <AppAnchor route=AppRoute::Eps(403)>
+                            <AppAnchor route=AppRoute::Eps(418)>
                                 <Card 
                                     score="4.1".to_string() 
                                     sticker="https://i.pinimg.com/originals/84/76/00/847600e526013b08c6f02d1a227eb4c2.png".to_string() 
@@ -52,7 +52,7 @@ impl Component for Ecchi {
                             </AppAnchor>
                         </div>
                         <div class="padding-40px">
-                            <AppAnchor route=AppRoute::Eps(393)>
+                            <AppAnchor route=AppRoute::Eps(407)>
                                 <Card 
                                     score="4.8".to_string() 
                                     sticker="https://static.zerochan.net/Nishikinomiya.Anna.full.2338518.png".to_string() 
@@ -61,7 +61,7 @@ impl Component for Ecchi {
                             </AppAnchor>
                         </div>
                         <div class="padding-40px">
-                            <AppAnchor route=AppRoute::Eps(336)>
+                            <AppAnchor route=AppRoute::Eps(347)>
                                 <Card 
                                     score="4.9".to_string() 
                                     sticker="https://thicc.mywaifulist.moe/waifus/15517/b2103ecb978045890d878ebb0831a146d40b6fb2331e2436e1b5bc0491f7d843_thumb.png".to_string() 
@@ -70,7 +70,7 @@ impl Component for Ecchi {
                             </AppAnchor>
                         </div>
                         <div class="padding-40px">
-                            <AppAnchor route=AppRoute::Eps(335)>
+                            <AppAnchor route=AppRoute::Eps(346)>
                                 <Card 
                                     score="4.2".to_string() 
                                     sticker="https://1.bp.blogspot.com/-d1tDdXg-5b8/VyVi9UOAYZI/AAAAAAAAF4U/NrRSic34ONMRRDdPTMGViTJyIwoC3KvlQCLcB/s1600/nekomonogatari__shiro____anime_icon_by_ggonido-d6d9s4t.png".to_string() 
@@ -79,7 +79,7 @@ impl Component for Ecchi {
                             </AppAnchor>
                         </div>
                         <div class="padding-40px">
-                            <AppAnchor route=AppRoute::Eps(329)>
+                            <AppAnchor route=AppRoute::Eps(339)>
                                 <Card 
                                     score="4.9".to_string() 
                                     sticker="https://bestofcomicbooks.com/wp-content/uploads/2019/03/Tsubasa-Hanekawa-near-nude.png".to_string() 

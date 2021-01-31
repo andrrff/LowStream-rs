@@ -6,12 +6,16 @@ use yew_router::{components::RouterAnchor, prelude::*, switch::Permissive};
 
 #[derive(Clone, Debug, Switch)]
 pub enum AppRoute {
+    #[to = "/about/"]
+    Contact,
     #[to = "/nsfw/"]
     Nsfw,
     #[to = "/animes/"]
     Animes,
     #[to = "/?id={id}"]
     Eps(u64),
+    #[to = "/data-sticker/"]
+    DataSticker,
     #[to = "/data/"]
     Data,
     #[to = "/search/"]

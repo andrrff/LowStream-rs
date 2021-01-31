@@ -1,5 +1,4 @@
 use serde::Deserialize;
-// use yewtil::NeqAssign;
 use yew::{
     format::{Json, Nothing},
     prelude::*,
@@ -13,15 +12,10 @@ use crate::{
 #[derive(Deserialize, Debug, Clone)]
 pub struct Ep {
     name: String,
-    // thumbnailLink: String,
-    // modifiedTime: String,
-    // size: String
 }
 
 #[derive(Deserialize, Debug, Clone)]
 pub struct Content {
-    // padrao: bool,
-    // fonte: String,
     eps: Vec<Ep>
 }
 
@@ -36,12 +30,6 @@ pub struct Anime {
 pub struct Struture {
     animes: Vec<Anime>
 }
-
-// #[derive(Clone, Debug, PartialEq, Properties)]
-// struct Props
-// {
-//     load: Callback(Result<Struture, anyhow::Error>)
-// }
 
 #[derive(Debug)]
 pub enum Msg {
@@ -150,7 +138,7 @@ impl Component for FetchServiceExample {
 
         match msg {
             GetInfo => {
-                let request = Request::get("https://gist.githubusercontent.com/GozoDeAvestruz/1f829fb9436bfe24268411b97afa5f96/raw/8c326da70bccea06f488663e460a590ed47d1568/tester.json")
+                let request = Request::get("https://lowstreamcast-default-rtdb.firebaseio.com/.json")
                     .body(Nothing)
                     .expect("Não foi possível efetuar o request.");
                 let callback =

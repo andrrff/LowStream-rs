@@ -159,6 +159,9 @@ impl Model {
                                 <AppAnchor classes="button is-light is-rounded" route=AppRoute::Search>
                                     { "Pesquisar" }
                                 </AppAnchor>
+                                // <a classes="button is-dark is-rounded" href=format!("/?id={}", number)>
+                                //     { "Random" }
+                                // </a>
                                 <AppAnchor classes="button is-dark is-rounded" route=AppRoute::Eps(number)>
                                     { "Random" }
                                 </AppAnchor>

@@ -5,10 +5,14 @@ use yew::{
     services::fetch::{FetchService, FetchTask, Request, Response},
 };
 
+// use serde_json::{Value, Map};
+
+use rand::prelude::*;
+
 use crate::{
     switch::{AppAnchor, AppRoute},
-    components::{carousel, view_content, view_ecchi, view_romance, view_shounen},
-    log
+    components::{carousel, view_content, view_ecchi, view_romance, view_shounen, view_cards, card, fetch_json},
+    // log
 };
 
 #[derive(Deserialize, Debug, Clone)]
@@ -24,12 +28,18 @@ pub struct Content {
 #[derive(Deserialize, Debug, Clone)]
 pub struct Anime {
     anime: String,
+    sticker: String,
     background: String,
 }
 
 #[derive(Deserialize, Debug, Clone)]
 pub struct Struture {
     array: Vec<Anime>
+}
+
+#[derive(Deserialize, Debug, Clone)]
+pub struct Name {
+    name: String
 }
 
 #[derive(Debug)]
@@ -67,13 +77,61 @@ impl LoadPosts {
                 true
         }
         let mut cards: Vec<Html> = Vec::new();
+        let mut random: Vec<Html> = Vec::new();
         let mut background: Vec<String> = Vec::new();
+        let mut names_animes: Vec<String> = Vec::new();
+        let mut id_animes: Vec<u64> = Vec::new();
+        let mut value: usize = 0;
+        let mut rng = rand::thread_rng();
+        
         let mut count = 0;
         match self.json {
             Some(ref content) => {
                 // console_log!("posts::view_json() - {}", "Loading done ✔️");
                 for i in 0..content.array.len()
                 {
+                    names_animes.push(content.array[i].anime.clone());
+                    id_animes.push(i as u64);
+                    value = rng.gen_range(0, content.array.len());
+                    if i < 9
+                    {
+                        random.push(html!{
+                            <div class="padding-40px">
+                                <AppAnchor route=AppRoute::Eps(value as u64)>
+                                    <card::Card 
+                                        score="4.9".to_string() 
+                                        sticker=content.array[value].sticker.clone()
+                                        name={
+                                            let mut name: Vec<char> = Vec::new();
+                                            let mut name_string: String = content.array[value].anime.clone();
+                                            let chars_name = name_string.chars();
+                                            for (i, e) in chars_name.enumerate()
+                                            {
+                                                if i < 35
+                                                {
+                                                    name.push(e);
+                                                }
+                                                else
+                                                {
+                                                    break;
+                                                }
+                                            }
+                                            if content.array[value].anime.clone().chars().count() > 35
+                                            {
+                                                for i in 0..3
+                                                {
+                                                    name.push('.')
+                                                }
+                                            }
+                                            let name_string: String = name.into_iter().collect();
+                                            name_string
+                                        }
+                                    />
+                                </AppAnchor>
+                            </div>
+                        })
+                    }
+
                     if search(content.array[i].anime.clone().to_lowercase(), self.debugged_payload.clone().to_lowercase()) && count < 9
                     {
                         count += 1;
@@ -95,16 +153,19 @@ impl LoadPosts {
 
                 html! {
                     <>
-                        <carousel::Model background=self.export_background()/>
+                        <carousel::Model background=self.export_info() name=names_animes id=id_animes.clone() page="animes".to_string() />
                         <section style="background-color: #25262F;">
                         <div class="mx-auto" style="width: 250px;">
-                                <div class="field has-addons" style="padding-top: 80px;">
+                                <div class="field has-addons" style="padding-top: 87px;">
                                     <input class="input is-rounded" type="text" oninput=self.link.callback(|input: InputData| Msg::Payload(input.value)) value=&self.payload placeholder="Encontre seu anime"/>
                                 </div>
                             </div>
                             <ul class="card-list con-cards" >
                                 {for cards.clone()}
                             </ul>
+                            <div>
+                            </div>
+                            <view_cards::View name="Random".to_string() content=random />
                         </section>
                     </>
                 }
@@ -117,11 +178,13 @@ impl LoadPosts {
     }
 
     fn view_fetching(&self) -> Html {
+        let names_animes: Vec<String> = vec!["Loading...".to_string()];
+        let id_animes: Vec<u64> = vec![99999999999];
         if self.fetch_task.is_some() {
             // console_log!("posts::view_fetching() - {}", "Loading progress 💬");
             html! { 
                 <>
-                    <carousel::Model background=self.export_background()/>
+                    <carousel::Model background=self.export_info() name=names_animes id=id_animes page="animes".to_string() />
                     <section style="background-color: #25262F;">
                         <div class="mx-auto" style="width: 250px;">
                             <div class="control is-loading field has-addons">
@@ -146,7 +209,7 @@ impl LoadPosts {
         }
     }
 
-    fn export_background(&self) -> Vec<String>
+    fn export_info(&self) -> Vec<String>
     {
         let mut background: Vec<String> = Vec::new();
         match self.json
@@ -157,10 +220,10 @@ impl LoadPosts {
                 {
                     background.push(content.array[i].background.clone());
                 }
-                // console_log!("posts::export_background() - {}", "Process is done ✔️");
+                // console_log!("posts::export_info() - {}", "Process is done ✔️");
             },
             None => {
-                // console_log!("posts::export_background() - {}", "Process is failure ❌");
+                // console_log!("posts::export_info() - {}", "Process is failure ❌");
                 background.push("https://3.bp.blogspot.com/-bNbqH1Ll5BY/XD97Ife_ioI/AAAAAAAA9Mk/ipwUBBWtGgoEUNu7m7AaYGyvw1DxBR97QCLcBGAs/s1600/Fundo%2Btransparente%2B1900x1900.png".to_string())
             }
         }

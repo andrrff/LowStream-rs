@@ -1,4 +1,6 @@
 use yew::prelude::*;
+
+use crate::components::fetch_json;
 pub struct Search;
 impl Component for Search {
     type Message = ();

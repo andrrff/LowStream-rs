@@ -6,7 +6,7 @@ use yew::{
 };
 
 use crate::{
-    components::{carousel, video, box_players},
+    components::{carousel, video, box_players, fetch_json},
 };
 
 #[derive(Deserialize, Debug, Clone)]
@@ -152,7 +152,7 @@ impl Eps {
                     <>
                         <section class="hero is-small is-dark is-bold has-background">
                             <img src=content.background.clone() class="hero-background is-transparent" style=" filter: blur(6px)"/>
-                            <div class="cover-image-header__animes">
+                            <div class="cover-image-header__animes" style="top: 200px">
                             <div class="cover-image-header__rows">
                             </div>
                         </div>
@@ -161,9 +161,10 @@ impl Eps {
                                     <h2 class="title" style="padding-top: 80px; text-shadow: 1px 1px #363636;">
                                         {content.anime.clone()}
                                     </h2>
+                                    <fetch_json::LoadInfo id=self.name.clone().to_string() />
                                     {self.notification()}
                                     <nav style="z-index: 1000">
-                                        <div class="navbar-item has-dropdown is-hoverable" style="background-color: rgba(0, 0, 0, 10%); backdrop-filter: blur(10px); border-radius: 8px;">
+                                        <div class="navbar-item has-dropdown is-hoverable" style="background-color: rgba(0, 0, 0, 30%); backdrop-filter: blur(10px); border-radius: 8px;">
                                             <a class="navbar-link" style="background-color: #36363600;color: white;">
                                                 {"Opções"}
                                             </a>
@@ -196,7 +197,7 @@ impl Eps {
         if self.fetch_task.is_some() {
             html! { 
                 <>
-                    <carousel::Model background=vec!["https://3.bp.blogspot.com/-bNbqH1Ll5BY/XD97Ife_ioI/AAAAAAAA9Mk/ipwUBBWtGgoEUNu7m7AaYGyvw1DxBR97QCLcBGAs/s1600/Fundo%2Btransparente%2B1900x1900.png".to_string()]/>
+                    <carousel::Model background=vec!["https://3.bp.blogspot.com/-bNbqH1Ll5BY/XD97Ife_ioI/AAAAAAAA9Mk/ipwUBBWtGgoEUNu7m7AaYGyvw1DxBR97QCLcBGAs/s1600/Fundo%2Btransparente%2B1900x1900.png".to_string()] name=vec!["Loading...".to_string()] id=vec![99999999] page="post".to_string() />
                     <section style="background-color: #25262F;">
                         <ul class="card-list">
                             <h1>{"..."}</h1>

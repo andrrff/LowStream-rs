@@ -1,4 +1,3 @@
-// use std::time::{Duration, Instant};
 use yew::{
     prelude::*,
 };
@@ -7,9 +6,14 @@ use yewtil::NeqAssign;
 
 use rand::prelude::*;
 
+use crate::switch::{AppAnchor, AppRoute};
+
 #[derive(Clone, Debug, PartialEq, Properties)]
 pub struct Props {
     pub background: Vec<String>,
+    pub name: Vec<String>,
+    pub id: Vec<u64>,
+    pub page: String
 }
 
 pub struct Model {
@@ -45,19 +49,48 @@ impl Component for Model {
                 let mut rng = rand::thread_rng();
                 self.value = rng.gen_range(0, self.props.background.len());
 
-
-                self.conteudo = html! {
-                    <section class="hero is-medium is-dark is-bold has-background">
-                        <img src=format!("{}", self.props.background[self.value].clone()) class="hero-background img-fluid is-transparent"/>
-                        <div class="hero-body">
-                            <div class="container" style="padding-top: 60px">
-                                <h1 class="title">
-                                    {""}
-                                </h1>
-                            </div>
-                        </div>
-                    </section>
-                };
+                if self.props.page == "animes".to_string()
+                {
+                    self.conteudo = html! {
+                            <AppAnchor route=AppRoute::Eps(self.props.id[self.value].clone())>
+                                <section class="hero is-medium is-dark is-bold has-background">
+                                    <img src=format!("{}", self.props.background[self.value.clone()].clone()) class="hero-background img-fluid is-transparent" style="height: 544px" />
+                                    <div class="hero-body">
+                                        <div class="container" style="padding-top: 60px">
+                                            <h1 class="title" style="text-shadow: 1px 1px #363636;">
+                                                {self.props.name[self.value].clone()}
+                                            </h1>
+                                        </div>
+                                    </div>
+                                </section>
+                                <div class="cover-image-header__overlay" style="top:200px">
+                                    <div class="cover-image-header__rows">
+                                    </div>
+                                </div>
+                            </AppAnchor>
+                        };
+                }
+                else
+                {
+                    self.conteudo = html! {
+                            <AppAnchor route=AppRoute::Eps(self.props.id[self.value].clone())>
+                                <section class="hero is-medium is-dark is-bold has-background">
+                                    <img src=format!("{}", self.props.background[self.value.clone()].clone()) class="hero-background img-fluid is-transparent"/>
+                                    <div class="hero-body">
+                                        <div class="container" style="padding-top: 60px">
+                                            <h1 class="title" style="text-shadow: 1px 1px #363636;">
+                                                {self.props.name[self.value].clone()}
+                                            </h1>
+                                        </div>
+                                    </div>
+                                </section>
+                                <div class="cover-image-header__overlay" style="top:200px">
+                                    <div class="cover-image-header__rows">
+                                    </div>
+                                </div>
+                            </AppAnchor>
+                        };
+                    }
             }
             Msg::MoveToLeft => {
                 if self.value == 0 {

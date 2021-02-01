@@ -31,7 +31,7 @@ impl Component for BoxPlayers {
     {
         html!{
             <>
-            <div class="notransition" style="background-color: rgba(0, 0, 0, 50%); color: white; display: inline-block;
+            <div class="notransition" style="background-color: rgba(0, 0, 0, 30%); color: white; display: inline-block;
                                     width: 90%;
                                     font-size: 1rem;
                                     text-decoration: none;

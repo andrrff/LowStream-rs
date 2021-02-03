@@ -76,14 +76,14 @@ impl Component for Model {
                                         <div class="container" style="padding-top: 60px">
                                             <h1 class="title" style="text-shadow: 1px 1px #363636;">
                                                 {self.props.name[self.value].clone()}
-                                                <nav class="menu">
+                                                <nav class="menu" style="width: 0px">
                                                     <input type="checkbox" href="#" class="menu-open" name="menu-open" id="menu-open"/>
                                                     <label class="menu-open-button" for="menu-open">
                                                         <span class="hamburger hamburger-1"></span>
                                                         <span class="hamburger hamburger-2"></span>
                                                         <span class="hamburger hamburger-3"></span>
                                                     </label>
-                                                    <a class="menu-item" onclick=self.link.callback(|_| Msg::OpenInfo)> <i class="fa fa-info"></i> </a>
+                                                    <a class="menu-item"> <fetch_json::LoadInfo id=self.props.id[self.value.clone() as usize].clone().to_string() type_box="home".to_string()/> </a>
                                                     <a class="menu-item">
                                                         <AppAnchor route=AppRoute::Eps(self.props.id[self.value].clone())>
                                                             <i class="fa fa-play"></i> 
@@ -143,29 +143,9 @@ impl Component for Model {
 
     fn view(&self) -> Html {
         html! {
-
             <>
-                {self.model()}
                 {self.conteudo.clone()}
             </>
-        }
-    }
-}
-
-impl Model
-{
-    fn model(&self) -> Html
-    {
-        let active_class = if self.toggleInfo { "is-active" } else { "" };
-
-        html!{
-            <div id="modal-bis" class=format!("modal {}", active_class)>
-                <div class="modal-background"></div>
-                <div class="modal-content" style="background: black">
-                    <h1 style="color: white; text-align: center;">{"🚧Em produção🚧"}</h1>
-                </div>
-                <button onclick=self.link.callback(|_| Msg::OpenInfo) class="modal-close is-large" aria-label="close"></button>
-            </div>
         }
     }
 }

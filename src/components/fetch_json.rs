@@ -5,11 +5,10 @@ use yew::{
     services::fetch::{FetchService, FetchTask, Request, Response},
 };
 
-use serde_json::{Value, Map};
-
 #[derive(Clone, Debug, PartialEq, Properties)]
 pub struct Props {
     pub id: String,
+    pub type_box: String
 }
 
 use crate::{
@@ -55,14 +54,15 @@ impl LoadInfo {
             Some(ref content) => {
                 for i in content.genres.iter()
                 {
-                    labels.push(html!{<span class="tag is-light" style="margin: 5px; border-radius: 18px">{i}</span>});
+                    labels.push(html!{<span class="tag is-black" style="margin: 5px; border-radius: 18px"><strong>{i}</strong></span>});
                 }
                 if self.toggle_view
                 {
-                    return html! {
+                    if self.props.type_box.clone() == "post"
+                    {
+                        return html! {
                         <>
                         <div class="notransition" style="background-color: rgba(0, 0, 0, 40%); color: white; display: inline-block;
-                                        width: 90%;
                                         font-size: 1rem;
                                         text-decoration: none;
                                         overflow: hidden;
@@ -74,15 +74,55 @@ impl LoadInfo {
                         <div class="card-content">
                         // <h1>{content.anime.clone()}</h1>
                             <h1><strong>{"Eps: "}</strong>{content.episodes.clone()}{"\n"}</h1>
-                            <h1><strong>{"Descrição: "}</strong>{content.description.clone()}{"\n"}</h1>
+                            <h1 style="padding-top: 5px"><strong>{"Descrição: "}</strong></h1>
+                            <h1 style="height: 100px; padding-top: 5px; overflow: auto;">{content.description.clone()}{"\n"}</h1>
                             <h1><strong>{"Generos: "}</strong></h1>{for labels}
                             // <h1>{format!("{:?}", content.studios.clone())}</h1>
-                            <h1><strong>{"Popularidade: "}</strong>{content.popularity.clone()}{"\n"}</h1>
-                            <h1><strong>{"Nota: "}</strong>{content.averageScore.clone()}</h1>
+                            <h1 style="padding-top: 5px"><strong>{"Popularidade: "}</strong>{content.popularity.clone()}{"\n"}</h1>
+                            <h1 style="padding-top: 5px"><strong>{"Nota: "}</strong>{content.averageScore.clone()}</h1>
                         </div>
                     </div>
                         </>
                     };
+                
+                    }
+                    else
+                    {
+                        return html! {
+                        <>
+                        <div class="notransition" style="background-color: rgba(0, 0, 0, 30%);
+                        color: white;
+                        display: inline-block;
+                        position: absolute;
+                        top: 60px;
+                        left: -100px;
+                        height: 140px;
+                        width: 350px;
+                        /* overflow: auto; */
+                        font-size: 1rem;
+                        text-decoration: none;
+                        overflow: auto;
+                        box-shadow: 0 0 4rem -1rem rgb(0 0 0);
+                        border-radius: 18px;">
+                        // <header class="card-header">
+                        //     <h2 class="card-header-title" style="color: white">{format!(" Informações sobre {}:", content.anime.clone())}<span class="icon"></span></h2>
+                        // </header>
+                        <div class="card-content">
+                        // <h1>{content.anime.clone()}</h1>
+                            <h1><strong>{"Eps: "}</strong>{content.episodes.clone()}{"\n"}</h1>
+                            <h1 style="padding-top: 5px"><strong>{"Descrição: "}</strong></h1>
+                            <h1 style="height: 100px; padding-top: 5px; overflow: auto;">{content.description.clone()}{"\n"}</h1>
+                            <h1><strong>{"Gêneros: "}</strong></h1>{for labels}
+                            // <h1>{format!("{:?}", content.studios.clone())}</h1>
+                            <h1 style="padding-top: 5px"><strong>{"Popularidade: "}</strong>{content.popularity.clone()}{"\n"}</h1>
+                            <h1 style="padding-top: 5px"><strong>{"Nota: "}</strong>{content.averageScore.clone()}</h1>
+                        </div>
+                    </div>
+                        </>
+                    };
+                
+                    
+                    }
                 }
                 else
                 {
@@ -105,7 +145,7 @@ impl LoadInfo {
     }
     fn view_error(&self) -> Html {
         if let Some(ref error) = self.error {
-            html! { <p>{ error.clone() }</p> }
+            html! {}
         } else {
             html! {}
         }
@@ -163,11 +203,12 @@ impl Component for LoadInfo {
     }
     fn view(&self) -> Html {
         let id = self.props.id.clone();
+        let style_button = if self.props.type_box.clone() == "post" {"width: 10px; margin: 5px; background: #00000057".to_string()} else {"width: 10px; margin: 5px; background: #00000000".to_string()};
         html! {
             <>
-                <button style="margin: 10px; backdrop-filter: blur(8px); background-color: rgba(0, 0, 0, 30%)" class="button is-black is-rounded" onclick=self.link.callback(move |_| Msg::GetInfo(id.clone()))>
+                <a class="button is-black is-rounded" onclick=self.link.callback(move |_| Msg::GetInfo(id.clone())) style=style_button>
                     <span class="icon"><i aria-hidden="true" class="fa fa-info"></i></span>
-                </button>
+                </a>
                 { self.view_fetching() }
                 { self.view_json() }
                 { self.view_error() }

@@ -67,9 +67,9 @@ impl Eps {
         {
             return html!{
                 <>
-                    <div class="notification is-danger is-light">
-                            <strong>{"O player ainda é um test, por conta disso a sua lógica ainda está em processo de desenvolvimento. Para reproduzir o próximo episódio, feche o player abaixo primeiramente, e por conseguinte clique no card desejado. Obg por sua visita uwu"}</strong>
-                    </div>
+                    // <div class="notification is-danger is-light" style="height: 120px; overflow: auto;">
+                    //         <strong>{"O player ainda é um test, por conta disso a sua lógica ainda está em processo de desenvolvimento. Para reproduzir o próximo episódio, feche o player abaixo primeiramente, e por conseguinte clique no card desejado. Obg por sua visita uwu"}</strong>
+                    // </div>
                     <div class="notification  is-dark">
                         <button class="delete" onclick=self.link.callback(|_| Msg::Close)></button>
                         <strong>{self.current_video.clone()}</strong>
@@ -135,7 +135,7 @@ impl Eps {
                             <a onclick=self.link.callback(move |_| Msg::TogglePlay(video.clone(), player.clone(), type_video.clone(), poster_video.clone()))>
                                 <a>
                                     <h1 class="text-in-square">{format!("{}", i + 1)}</h1>
-                                    <strong><h2>{content.dados[self.number].eps[i].name.clone().replace(".mkv", " ").replace(".mp4", " ").replace(".avi", " ")}</h2></strong>
+                                    <strong><h2 style="color: white">{content.dados[self.number].eps[i].name.clone().replace(".mkv", " ").replace(".mp4", " ").replace(".avi", " ")}<a href=content.dados[self.number].eps[i].player.clone()><span class="icon"><i aria-hidden="true" class="fa fa-download"></i></span></a></h2></strong>
                                 </a>
                                 </a>
                             </li>
@@ -161,10 +161,10 @@ impl Eps {
                                     <h2 class="title" style="padding-top: 80px; text-shadow: 1px 1px #363636;">
                                         {content.anime.clone()}
                                     </h2>
-                                    <fetch_json::LoadInfo id=self.name.clone().to_string() />
+                                    <fetch_json::LoadInfo id=self.name.clone().to_string() type_box="post".to_string()/>
                                     {self.notification()}
                                     <nav style="z-index: 1000">
-                                        <div class="navbar-item has-dropdown is-hoverable" style="background-color: rgba(0, 0, 0, 30%); backdrop-filter: blur(10px); border-radius: 8px;">
+                                        <div class="navbar-item has-dropdown is-hoverable" style="background-color: rgba(0, 0, 0, 30%); backdrop-filter: blur(10px); border-radius: 18px;">
                                             <a class="navbar-link" style="background-color: #36363600;color: white;">
                                                 {"Opções"}
                                             </a>

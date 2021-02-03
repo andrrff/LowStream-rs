@@ -735,6 +735,8 @@
     .navbar-dropdown {
         font-size: .875rem;
         overflow: hidden;
+        max-height: 200px;
+        overflow: auto;
         /* z-index: 1000; */
         padding-bottom: .5rem;
         border-radius: 18px;

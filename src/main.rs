@@ -25,7 +25,7 @@ use rand::prelude::*;
 mod pages;
 mod components;
 use pages::{
-    home::Home, page_not_found::PageNotFound, post::Eps, posts::LoadPosts,
+    home::LoadPosts, page_not_found::PageNotFound, post::Eps,
     search::Search, nsfw::Nsfw, contact_us::Contact
 };
 
@@ -101,7 +101,7 @@ impl Model {
 
         let active_class = if navbar { "is-active" } else { "" };
         let mut rng = rand::thread_rng();
-        let number = rng.gen_range(0, 487);
+        let number = rng.gen_range(0, 507);
 
         html! {
                 <>
@@ -123,9 +123,9 @@ impl Model {
                     <AppAnchor classes="navbar-item" route=AppRoute::Home>
                             <a onclick=link.callback(|_| Msg::ToggleNav) style="background-color: rgba(0, 0, 0, 0%); color: white">{ "Home" }</a>
                     </AppAnchor>
-                    <AppAnchor classes="navbar-item" route=AppRoute::Animes>
-                            <a onclick=link.callback(|_| Msg::ToggleNav) style="background-color: rgba(0, 0, 0, 0%); color: white">{ "Animes" }</a>
-                    </AppAnchor>
+                    // <AppAnchor classes="navbar-item" route=AppRoute::Animes>
+                    //         <a onclick=link.callback(|_| Msg::ToggleNav) style="background-color: rgba(0, 0, 0, 0%); color: white">{ "Animes" }</a>
+                    // </AppAnchor>
                     <AppAnchor classes="navbar-item" route=AppRoute::Home>
                             <a onclick=link.callback(|_| Msg::ToggleNav) style="background-color: rgba(0, 0, 0, 0%); color: gray">{ "Filmes" }</a>
                     </AppAnchor>
@@ -139,7 +139,7 @@ impl Model {
                             <div class="navbar-dropdown is-boxed" style="background-color: rgba(0, 0, 0);">
                                 <AppAnchor classes="navbar-item" route=AppRoute::Contact>
                                     <a onclick=link.callback(|_| Msg::ToggleNav) style="background-color: rgba(0, 0, 0, 0%); color: white">
-                                        {"About"}
+                                        {"Faça seu pedido"}
                                     </a>
                                 </AppAnchor>
                                 <a class="navbar-item" href="https://github.com/LowStream-Community/LowStream/issues/new/choose" onclick=link.callback(|_| Msg::ToggleNav) style=" background-color: rgba(0, 0, 0, 0%);color: white" target="_blank">
@@ -198,7 +198,7 @@ impl Model {
                 html! { <Search /> }
             }
             AppRoute::Home => {
-                html! { <Home /> }
+                html! { <LoadPosts /> }
             }
             AppRoute::PageNotFound(Permissive(route)) => {
                 html! { <PageNotFound route=route /> }

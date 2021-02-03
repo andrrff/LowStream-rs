@@ -165,7 +165,7 @@ impl LoadPosts {
                             </ul>
                             <div>
                             </div>
-                            <view_cards::View name="Random".to_string() content=random />
+                            <view_cards::View name="Random".to_string() content=random/>
                         </section>
                     </>
                 }

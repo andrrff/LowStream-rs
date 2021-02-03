@@ -287,7 +287,7 @@
         100% {
             right: 16px;
             width: 247.64px;
-            height: 389.39px;
+            height: 359px;
         }
     }
     
@@ -380,7 +380,7 @@
     .navbar-dropdown {
         font-size: .875rem;
         padding-bottom: .5rem;
-        border-radius: 10px;
+        border-radius: 18px;
         padding-top: .5rem;
     }
     
@@ -511,15 +511,14 @@
     }
     
     .notification {
-        background-color: #f5f5f5;
-        border-radius: 8px;
+        background-color: #000000;
+        border-radius: 18px;
         position: relative;
         padding: 1.25rem 2.5rem 1.25rem 1.5rem;
     }
     
     .notification.is-dark {
-        background-color: #36363626;
-        backdrop-filter: blur(10px);
+        background-color: #00000049;
         color: #fff;
     }
     
@@ -556,4 +555,159 @@
         object-position: bottom;
         width: 128%;
         height: 138%;
+    }
+    
+    .menu {
+        filter: url("#shadowed-goo");
+    }
+    
+    .menu-item,
+    .menu-open-button {
+        background: #000000;
+        border-radius: 100%;
+        width: 52px;
+        height: 52px;
+        margin-left: -40px;
+        position: absolute;
+        left: 30px;
+        top: 20px;
+        color: white;
+        text-align: center;
+        line-height: 52px;
+        transform: translate3d(0, 0, 0);
+        transition: transform ease-out 200ms;
+    }
+    
+    .menu-open {
+        display: none;
+    }
+    
+    .hamburger {
+        width: 16px;
+        height: 3px;
+        background: white;
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 59%;
+        margin-left: -12.5px;
+        margin-top: -1.5px;
+        transition: transform 200ms;
+    }
+    
+    .hamburger-1 {
+        transform: translate3d(0, 0, 0);
+    }
+    
+    .hamburger-2 {
+        transform: translate3d(0, 0, 0) rotate(90deg);
+    }
+    
+    .hamburger-3 {
+        transform: translate3d(0, 0, 0);
+    }
+    
+    .menu-open:checked+.menu-open-button .hamburger-1 {
+        transform: translate3d(0, 5.0px, 0) rotate(45deg);
+    }
+    
+    .menu-open:checked+.menu-open-button .hamburger-2 {
+        transform: translate3d(0, 5.0px, 0) scale(0.1, 1);
+    }
+    
+    .menu-open:checked+.menu-open-button .hamburger-3 {
+        transform: translate3d(0, -6px, 0) rotate(-45deg)
+    }
+    
+    .menu {
+        position: absolute;
+        left: 50%;
+        margin-left: -190px;
+        padding-top: 20px;
+        padding-left: 190px;
+        width: 380px;
+        height: 250px;
+        box-sizing: border-box;
+        font-size: 20px;
+        text-align: left;
+    }
+    
+    .menu-item:hover {
+        background: #808080;
+        color: #ff4081;
+    }
+    
+    .menu-item:nth-child(3) {
+        transition-duration: 70ms;
+    }
+    
+    .menu-item:nth-child(4) {
+        transition-duration: 130ms;
+    }
+    
+    .menu-item:nth-child(5) {
+        transition-duration: 190ms;
+    }
+    
+    .menu-open-button {
+        z-index: 2;
+        transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        transition-duration: 400ms;
+        transform: scale(1, 1) translate3d(0, 0, 0);
+        cursor: pointer;
+    }
+    
+    .menu-open-button:hover {
+        transform: scale(1.2, 1.2) translate3d(0, 0, 0);
+    }
+    
+    .menu-open:checked+.menu-open-button {
+        transition-timing-function: linear;
+        transition-duration: 200ms;
+        transform: scale(0.8, 0.8) translate3d(0, 0, 0);
+    }
+    
+    .menu-open:checked~.menu-item {
+        transition-timing-function: cubic-bezier(0.935, 0, 0.34, 1.33);
+    }
+    
+    .menu-open:checked~.menu-item:nth-child(3) {
+        transition-duration: 160ms;
+        transform: translate3d(60px, 0, 0);
+    }
+    
+    .menu-open:checked~.menu-item:nth-child(4) {
+        transition-duration: 240ms;
+        transform: translate3d(120px, 0, 0);
+    }
+    
+    .menu-open:checked~.menu-item:nth-child(5) {
+        transition-duration: 320ms;
+        transform: translate3d(180px, 0, 0);
+    }
+    
+    .menu {
+        /* position: absolute; */
+        left: 10%;
+        margin-left: 0;
+        padding-top: 20px;
+        /* padding-left: 190px; */
+        width: 100%;
+        /* height: 250px; */
+        box-sizing: border-box;
+        font-size: 20px;
+        text-align: left;
+    }
+    
+    .navbar-burger span {
+        background-color: currentColor;
+        display: block;
+        height: 2px;
+        left: calc(50% - 8px);
+        position: absolute;
+        transform-origin: center;
+        transition-duration: 86ms;
+        transition-property: background-color, opacity, transform;
+        transition-timing-function: ease-out;
+        width: 16px;
     }

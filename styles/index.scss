@@ -48,7 +48,7 @@ ol.gradient-list {
     padding-left: 1rem;
     >li {
         background: white;
-        border-radius: 0 0.5rem 0.5rem 0.5rem;
+        border-radius: 0 1.5rem 1.5rem 1.5rem;
         @extend %boxshadow;
         // counter-increment: gradient-counter;
         margin-top: 1rem;

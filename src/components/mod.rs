@@ -3,6 +3,7 @@ pub mod carousel;
 pub mod video;
 pub mod card;
 pub mod fetch_json;
+pub mod interval_task;
 pub mod view_cards;
 pub mod view_content;
 pub mod view_romance;

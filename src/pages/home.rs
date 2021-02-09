@@ -4,15 +4,18 @@ use yew::{
     prelude::*,
     services::fetch::{FetchService, FetchTask, Request, Response},
 };
-
-// use serde_json::{Value, Map};
-
+use std::cell::RefCell;
+use std::rc::Rc;
+use wasm_bindgen::prelude::*;
+use wasm_bindgen::JsCast;
 use rand::prelude::*;
+use web_sys::Element;
+use gloo::{events::EventListener};
 
 use crate::{
     switch::{AppAnchor, AppRoute},
     components::{carousel, view_content, view_ecchi, view_romance, view_shounen, view_cards, card, fetch_json},
-    // log
+    log
 };
 
 #[derive(Deserialize, Debug, Clone)]
@@ -300,6 +303,7 @@ impl Component for LoadPosts {
                 { self.view_fetching() }
                 { self.view_json() }
                 { self.view_error() }
+                // <h1>{format!("querySelector( {:?} )", con_cards)}</h1>
                 <view_content::Content/>
                 <view_ecchi::Ecchi    />
                 <view_shounen::Shounen/> 
@@ -307,4 +311,24 @@ impl Component for LoadPosts {
             </>
         }
     }
+}
+
+fn window() -> web_sys::Window {
+    web_sys::window().expect("no global `window` exists")
+}
+
+fn request_animation_frame(f: &Closure<dyn FnMut()>) {
+    window()
+        .request_animation_frame(f.as_ref().unchecked_ref())
+        .expect("should register `requestAnimationFrame` OK");
+}
+
+fn document() -> web_sys::Document {
+    window()
+        .document()
+        .expect("should have a document on window")
+}
+
+fn body() -> web_sys::HtmlElement {
+    document().body().expect("document should have a body")
 }

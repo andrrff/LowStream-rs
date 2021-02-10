@@ -765,7 +765,7 @@
         .imgs {
             display: grid;
             grid-gap: 5px;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
             grid-auto-rows: 120px;
             grid-auto-flow: dense;
         }
@@ -816,7 +816,6 @@
         
         .vertical {
             grid-row: span 3;
-            grid-column: span 2;
         }
         
         .big {

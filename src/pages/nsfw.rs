@@ -40,15 +40,24 @@ impl Nsfw
 {
     fn view_json(&self) -> Html {
         let mut background: Vec<Html> = Vec::new();
+        let mut number = 0;
         match self.json
         {
             Some(ref content) => {
                 let mut rng = rand::thread_rng();
-                for i in 0..self.position_y as u64 / 120.0 as u64
+                let size_img = vec!["big", "vertical", "horizontal"];
+                for i in 0..self.position_y as u64 / 40.0 as u64
                 {
+                    if number == 2
+                    {
+                        number = 0;
+                    }
                     background.push(html!{
-                        <img src=content.array[i as usize].clone()/>//rng.gen_range(0, content.array.len()
+                        <a class=size_img[number]>//size_img[rng.gen_range(0, size_img.len())]
+                            <img src=content.array[i as usize].clone()/>//rng.gen_range(0, content.array.len()
+                        </a>
                     });
+                    number += 1;
                 }
 
                 html!{
@@ -68,7 +77,7 @@ impl Nsfw
                             </div>
                         </div>
                         <div style="padding-top: 10pc;">
-                            <section id="photos" >
+                            <section class="imgs" style="padding-top: 50px">
                                 { for background }
                             </section>
                         </div>

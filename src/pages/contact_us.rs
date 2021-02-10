@@ -50,9 +50,82 @@ impl Component for Contact {
             <div class="level-item google" style="overflow: hidden; padding-top: 80px;">
                 <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdW5Mvu6yxv8udeACh1anwWpGRK3510nbt-uwlZPYxddesZ_Q/viewform?embedded=true" width="640" height="1000" frameborder="0" marginheight="0" marginwidth="0" style="overflow: hidden">{"A carregar…"}</iframe>
             </div>
-            <ProgressDelay duration_ms=15u64 on_complete=self.link.callback(|_| Msg::AddOne) />
-            <h1>{self.number}</h1>
-                // <div class="container">
+                <div class="imgs">
+                <a href="https://source.unsplash.com/600x600/?sig=1" data-lightbox="homePortfolio">
+                    <img src="https://source.unsplash.com/600x600/?sig=1"/>
+                </a>
+                
+                <a href="https://source.unsplash.com/600x800/?sig=12" data-lightbox="homePortfolio" class="vertical">
+                    <img src="https://source.unsplash.com/600x800/?sig=12"/>
+                </a>
+                
+                <a href="https://source.unsplash.com/800x600/?sig=71" data-lightbox="homePortfolio" class="horizontal">
+                    <img src="https://source.unsplash.com/800x600/?sig=71"/>
+                </a>
+                
+                <a href="https://source.unsplash.com/600x600/?sig=40" data-lightbox="homePortfolio">
+                    <img src="https://source.unsplash.com/600x600/?sig=40"/>
+                </a>
+                
+                <a href="https://source.unsplash.com/600x600/?sig=32" data-lightbox="homePortfolio">
+                    <img src="https://source.unsplash.com/600x600/?sig=32"/>
+                </a>
+                
+                <a href="https://source.unsplash.com/800x800/?sig=7" data-lightbox="homePortfolio" class="big">
+                    <img src="https://source.unsplash.com/800x800/?sig=7"/>
+                </a>
+                
+                <a href="https://source.unsplash.com/600x600/?sig=111" data-lightbox="homePortfolio">
+                    <img src="https://source.unsplash.com/600x600/?sig=111"/>
+                </a>
+                
+                <a href="https://source.unsplash.com/600x800/?sig=94" data-lightbox="homePortfolio" class="vertical">
+                    <img src="https://source.unsplash.com/600x800/?sig=94"/>
+                </a>
+                
+                <a href="https://source.unsplash.com/600x600/?sig=11" data-lightbox="homePortfolio">
+                    <img src="https://source.unsplash.com/600x600/?sig=11"/>
+                </a>
+                
+                <a href="https://source.unsplash.com/800x600/?sig=68" data-lightbox="homePortfolio" class="horizontal">
+                    <img src="https://source.unsplash.com/800x600/?sig=68"/>
+                </a>
+                
+                <a href="https://source.unsplash.com/600x600/?sig=24" data-lightbox="homePortfolio">
+                    <img src="https://source.unsplash.com/600x600/?sig=24"/>
+                </a>
+                
+                <a href="https://source.unsplash.com/800x800/?sig=55" data-lightbox="homePortfolio" class="big">
+                    <img src="https://source.unsplash.com/800x800/?sig=55"/>
+                </a>
+                
+                <a href="https://source.unsplash.com/600x600/?sig=56" data-lightbox="homePortfolio">
+                    <img src="https://source.unsplash.com/600x600/?sig=56"/>
+                </a>
+                
+                <a href="https://source.unsplash.com/800x600/?sig=186" data-lightbox="homePortfolio" class="horizontal">
+                    <img src="https://source.unsplash.com/800x600/?sig=186"/>
+                </a>
+                
+                <a href="https://source.unsplash.com/600x600/?sig=117" data-lightbox="homePortfolio">
+                    <img src="https://source.unsplash.com/600x600/?sig=117"/>
+                </a>
+                
+                <a href="https://source.unsplash.com/800x800/?sig=157" data-lightbox="homePortfolio" class="big">
+                    <img src="https://source.unsplash.com/800x800/?sig=157"/>
+                </a>
+                
+                <a href="https://source.unsplash.com/600x600/?sig=287" data-lightbox="homePortfolio">
+                    <img src="https://source.unsplash.com/600x600/?sig=287"/>
+                </a>
+                
+                <a href="https://source.unsplash.com/600x800/?sig=307" data-lightbox="homePortfolio" class="vertical">
+                    <img src="https://source.unsplash.com/600x800/?sig=307"/>
+                </a>
+                </div>
+            // <ProgressDelay duration_ms=15u64 on_complete=self.link.callback(|_| Msg::AddOne) />
+            // <h1>{self.number}</h1>
+                // <div class="content">
                 //     <div class="tabs">
                 //         <input type="radio" id="radio-1" name="tabs" checked=true />
                 //         <label class="tab" for="radio-1">{"Episódios"}<span class="notification">{"25"}</span></label>

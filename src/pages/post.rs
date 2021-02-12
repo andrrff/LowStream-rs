@@ -34,6 +34,8 @@ pub enum Msg {
     ReceiveResponse(Result<Struture, anyhow::Error>),
     GetOption(usize),
     TogglePlay(String, String, String, String),
+    Nextpage,
+    PrevPage,
     Close,
     ViewElements(usize)
 }
@@ -84,6 +86,8 @@ impl Eps {
         let mut cards: Vec<Html> = Vec::new();
         let mut options: Vec<Html> = Vec::new();
         let mut buttons: Vec<Html> = Vec::new();
+        let mut button_next: Html = html!{};
+        let mut button_prev: Html = html!{};
         let mut count: u64 = 0;
         match self.json {
             Some(ref content) => {
@@ -107,6 +111,45 @@ impl Eps {
                             </button>
                         });
                     }
+                    if buttons.len() == 1
+                    {
+                        buttons = vec![html!{}];
+                    }
+                    else
+                    {
+                        if self.change > 0
+                        {
+                            button_prev = html!{
+                                <button class="button is-black is-rounded" style="margin: 5px" onclick=self.link.callback(|_| Msg::PrevPage)>
+                                    <span class="icon" style="color: white"><i aria-hidden="true" class="fa fa-chevron-left"></i></span>
+                                </button>
+                            };
+                        }
+                        else
+                        {
+                            button_prev = html!{
+                                <button class="button is-dark is-rounded" style="margin: 5px">
+                                    <span class="icon" style="color: white"><i aria-hidden="true" class="fa fa-chevron-left"></i></span>
+                                </button>
+                            };
+                        }
+                        if self.change < quantidade_de_eps.div_euclid(25) - 1
+                        {
+                            button_next = html!{
+                                <button class="button is-black is-rounded" style="margin: 5px" onclick=self.link.callback(|_| Msg::Nextpage)>
+                                    <span class="icon" style="color: white"><i aria-hidden="true" class="fa fa-chevron-right"></i></span>
+                                </button>
+                            };
+                        }
+                        else
+                        {
+                            button_next = html!{
+                                <button class="button is-dark is-rounded" style="margin: 5px">
+                                    <span class="icon" style="color: white"><i aria-hidden="true" class="fa fa-chevron-right"></i></span>
+                                </button>
+                            };
+                        }
+                    }
                 }
                 else
                 {
@@ -122,7 +165,48 @@ impl Eps {
                     {
                         buttons = vec![html!{}];
                     }
+                    else
+                    {
+                        if self.change > 0
+                        {
+                            button_prev = html!{
+                                <button class="button is-black is-rounded" style="margin: 5px" onclick=self.link.callback(|_| Msg::PrevPage)>
+                                    <span class="icon" style="color: white"><i aria-hidden="true" class="fa fa-chevron-left"></i></span>
+                                </button>
+                            };
+                        }
+                        else
+                        {
+                            button_prev = html!{
+                                <button class="button is-dark is-rounded" style="margin: 5px">
+                                    <span class="icon" style="color: white"><i aria-hidden="true" class="fa fa-chevron-left"></i></span>
+                                </button>
+                            };
+                        }
+                        if self.change < quantidade_de_eps.div_euclid(25)
+                        {
+                            button_next = html!{
+                                <button class="button is-black is-rounded" style="margin: 5px" onclick=self.link.callback(|_| Msg::Nextpage)>
+                                    <span class="icon" style="color: white"><i aria-hidden="true" class="fa fa-chevron-right"></i></span>
+                                </button>
+                            };
+                        }
+                        else
+                        {
+                            button_next = html!{
+                                <button class="button is-dark is-rounded" style="margin: 5px">
+                                    <span class="icon" style="color: white"><i aria-hidden="true" class="fa fa-chevron-right"></i></span>
+                                </button>
+                            };
+                        }
+                    }
                 }
+
+                buttons[self.change] = html!{
+                    <button class="button is-light">
+                        {self.change + 1}
+                    </button>
+                };
 
                 for i in self.change * 25..quantidade_de_eps
                 {
@@ -135,7 +219,7 @@ impl Eps {
                             <a onclick=self.link.callback(move |_| Msg::TogglePlay(video.clone(), player.clone(), type_video.clone(), poster_video.clone()))>
                                 <a>
                                     <h1 class="text-in-square">{format!("{}", i + 1)}</h1>
-                                    <strong><h2 style="color: white">{content.dados[self.number].eps[i].name.clone().replace(".mkv", " ").replace(".mp4", " ").replace(".avi", " ")}<a href=content.dados[self.number].eps[i].player.clone()><span class="icon"><i aria-hidden="true" class="fa fa-download"></i></span></a></h2></strong>
+                                    <strong><h2 style="color: white">{content.dados[self.number].eps[i].name.clone().replace(".mkv", " ").replace(".mp4", " ").replace(".avi", " ")}<a href=content.dados[self.number].eps[i].player.clone()><span class="icon"><i aria-hidden="true" style="color: white" class="fa fa-download"></i></span></a></h2></strong>
                                 </a>
                                 </a>
                             </li>
@@ -177,8 +261,15 @@ impl Eps {
                             </div>
                         </section>
                         <section style="background-color: #25262F; margin-top: 12pc">
-                            <div class="con-cards">
-                                {for buttons.clone()}
+                            <div class="con-cards" style="justify-content: center;
+                                                          width: 100%;
+                                                          padding-left: 0px;
+                                                          padding-right: 0px;">
+                                {button_prev}
+                                <div class="con-cards">
+                                    {for buttons.clone()}
+                                </div>
+                                {button_next}
                             </div>
                             <ol class="gradient-list" style="margin-left: 30px; margin-right: 30px;">
                                 {for cards.clone()}
@@ -254,6 +345,14 @@ impl Component for Eps {
         use Msg::*;
 
         match msg {
+            Nextpage => {
+                self.change += 1;
+                true
+            }
+            PrevPage => {
+                self.change -= 1;
+                true
+            }
             ViewElements(number) => {
                 self.change = number;
                 true

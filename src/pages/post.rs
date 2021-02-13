@@ -4,6 +4,7 @@ use yew::{
     prelude::*,
     services::fetch::{FetchService, FetchTask, Request, Response},
 };
+use wasm_bindgen::JsCast;
 
 use crate::{
     components::{carousel, video, box_players, fetch_json},
@@ -72,7 +73,7 @@ impl Eps {
                     // <div class="notification is-danger is-light" style="height: 120px; overflow: auto;">
                     //         <strong>{"O player ainda é um test, por conta disso a sua lógica ainda está em processo de desenvolvimento. Para reproduzir o próximo episódio, feche o player abaixo primeiramente, e por conseguinte clique no card desejado. Obg por sua visita uwu"}</strong>
                     // </div>
-                    <div class="notification  is-dark">
+                    <div class="notification  is-dark" style="height: auto">
                         <button class="delete" onclick=self.link.callback(|_| Msg::Close)></button>
                         <strong>{self.current_video.clone()}</strong>
                     </div>
@@ -111,6 +112,11 @@ impl Eps {
                             </button>
                         });
                     }
+                    buttons[self.change] = html!{
+                        <button class="button is-light">
+                            {self.change + 1}
+                        </button>
+                    };
                     if buttons.len() == 1
                     {
                         buttons = vec![html!{}];
@@ -161,6 +167,11 @@ impl Eps {
                             </button>
                         });
                     }
+                    buttons[self.change] = html!{
+                        <button class="button is-light">
+                            {self.change + 1}
+                        </button>
+                    };
                     if buttons.len() == 1
                     {
                         buttons = vec![html!{}];
@@ -201,12 +212,6 @@ impl Eps {
                         }
                     }
                 }
-
-                buttons[self.change] = html!{
-                    <button class="button is-light">
-                        {self.change + 1}
-                    </button>
-                };
 
                 for i in self.change * 25..quantidade_de_eps
                 {
@@ -374,7 +379,13 @@ impl Component for Eps {
                         <box_players::BoxPlayers link_video=self.link_video.clone()/>
                     </div>
                 };
-                
+                // let video = document().get_element_by_id("reload_video").unwrap();
+                // let video: web_sys::HtmlMediaElement = video
+                //                                     .dyn_into::<web_sys::HtmlMediaElement>()
+                //                                     .map_err(|_| ())
+                //                                     .unwrap();
+                // video.load();
+                window().scroll_to_with_x_and_y(0.0, 0.0);
                 true
             }
             GetOption(value) => {
@@ -423,4 +434,18 @@ impl Component for Eps {
             </>
         }
     }
+}
+
+fn window() -> web_sys::Window {
+    web_sys::window().expect("no global `window` exists")
+}
+
+fn document() -> web_sys::Document {
+    window()
+        .document()
+        .expect("should have a document on window")
+}
+
+fn body() -> web_sys::HtmlElement {
+    document().body().expect("document should have a body")
 }

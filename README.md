@@ -108,5 +108,3 @@ que seu acesso possa ser possibilitado.
   cargo build --target wasm32-unknown-unknown && trunk serve
 
   ```
-
-  <img align="center" alt="Noooo a imagem n presta T_T" src="https://i.pinimg.com/564x/05/a8/0e/05a80e4c78c3bd767650229f0407e162.jpg"> 

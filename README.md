@@ -13,6 +13,7 @@
   - [x] ~~Scarpping Animezay~~
   - [ ] WebManifest;
   - [ ] Apps (desktop, android, ios...) with Tauri;
+  - [ ] 100% using web-sys also yew.rs;
   
   
   <h3>ATENÇÃO!</h3>
